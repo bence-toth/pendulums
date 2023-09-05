@@ -1,0 +1,88 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  transform-style: preserve-3d;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  overflow: hidden;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  background-color: black;
+}
+
+.pendulums-container {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  width: 95vmin;
+  aspect-ratio: 1 / 1;
+  position: relative;
+  perspective: 16000px;
+  animation: pendulums-spin 200s infinite linear;
+}
+
+@keyframes pendulums-spin {
+  from {
+    transform: rotateY(0deg);
+  }
+  to {
+    transform: rotateY(360deg);
+  }
+}
+
+.pendulum-wrapper {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+.pendulum {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  height: 100%;
+  width: 10%;
+  transform-origin: top;
+  animation: pendulum-swing 2s alternate infinite ease-in-out;
+}
+
+.pendulum::before {
+  content: "";
+  position: absolute;
+  height: calc(100% - 4vmin);
+  width: 1px;
+  background-color: hsl(0deg 0% 25%);
+  z-index: -1;
+}
+
+.pendulum::after {
+  content: "";
+  position: absolute;
+  width: 8vmin;
+  aspect-ratio: 1 / 1;
+  background-color: var(--pendulum-color);
+  align-self: flex-end;
+  border-radius: 50%;
+  box-shadow: inset 0 -25px 40px rgba(0, 0, 0, 0.5);
+  animation: pendulums-spin 200s infinite linear reverse;
+}
+
+@keyframes pendulum-swing {
+  from {
+    transform: rotate(28deg);
+  }
+  to {
+    transform: rotate(-28deg);
+  }
+}

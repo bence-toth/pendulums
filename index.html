@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pendulum swing</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="pendulums-container"></div>
+    <script>
+      const numberOfPendulums = 12;
+      document.querySelector(".pendulums-container").innerHTML = Array(
+        numberOfPendulums
+      )
+        .fill(
+          `
+            <div class="pendulum-wrapper">
+              <div class="pendulum"></div>
+            </div>
+          `
+        )
+        .join("");
+      [...document.querySelectorAll(".pendulum-wrapper")].forEach(
+        (pendulumWrapper, pendulumIndex) => {
+          pendulumWrapper.style.transform = `translateZ(${
+            (pendulumIndex - numberOfPendulums / 2) * 10
+          }vmin)`;
+          const pendulum = pendulumWrapper.querySelector(".pendulum");
+          // pendulum.style.height = `${
+          //   100 - (numberOfPendulums - pendulumIndex - 1)
+          // }%`;
+          pendulum.style.setProperty(
+            "--pendulum-color",
+            `hsl(${pendulumIndex * (100 / numberOfPendulums)} 50% 50%)`
+          );
+          pendulum.style.animationDuration = `${
+            20 / (pendulumIndex / 2 + 10)
+          }s`;
+          pendulum.style.zIndex = numberOfPendulums - pendulumIndex;
+        }
+      );
+    </script>
+  </body>
+</html>
